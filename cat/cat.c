@@ -1,27 +1,26 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+char buf[4096];
 int main()
 {
-	char buf[4096];
-	ssize_t nread = 0;
-	ssize_t nwrite = 0;
+	ssize_t bytes_read = 0,  bytes_write = 0;
 	while (1)
 	{
-		nread = read(STDIN_FILENO, buf, sizeof(buf));
-		if (nread == 0)
+		bytes_read = read(STDIN_FILENO, buf, sizeof(buf));
+		if (bytes_read == 0)
 		{
-			break;
+			return 0;
 		}
-		else if (nread < 0)
+		else if (bytes_read < 0)
 		{
-			fprintf(stderr, "%s\n", "Can't write");
+			fprintf(stderr, "%s\n", "It's not bytes yet");
 			return -1;
 		}
-		nwrite = write(STDOUT_FILENO, buf, nread);
-		if (nwrite < 0)
+		bytes_write = write(STDOUT_FILENO, buf, bytes_read);
+		if (bytes_write < 0)
 		{
-			fprintf(stderr, "%s\n", "Can't write");
+			fprintf(stderr, "%s\n", "I can't write this");
 			return -1;
 		}	
 	}
