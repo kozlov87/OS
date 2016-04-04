@@ -27,6 +27,7 @@ int main() {
     sigact.sa_flags |= SA_SIGINFO;
 
     sigset_t block_mask;
+    sigemptyset(&block_mask);
     sigaddset (&block_mask, SIGUSR1);
     sigaddset (&block_mask, SIGUSR2);
 
